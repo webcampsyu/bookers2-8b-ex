@@ -5,6 +5,12 @@ class Book < ApplicationRecord
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
   
+  #scope :スコープ名, -> { 条件式 }
+  #スコープ名で条件式を呼び出せる
+  #where(条件)でほしいデータを取り出す
+  scope :created_today, -> { where(created_at: Time.zone.now.all_day) }
+  scope :created_yesterday, -> { where(created_at: 1.day.ago.all_day) }
+  
   #favorited_by?メソッドで引数で渡されたユーザidがfavoritesテーブル内に
   #存在するかどうかを調べる
   def favorited_by?(user)
